@@ -7,6 +7,7 @@ use PhpBundle\Kpi\Domain\Entities\SignatureEntity;
 use PhpBundle\Crypt\Domain\Enums\HashAlgoEnum;
 use PhpBundle\Kpi\Domain\Enums\RsaKeyFormatEnum;
 use PhpBundle\Crypt\Domain\Libs\Encoders\EncoderInterface;
+use PhpBundle\Kpi\Domain\Helpers\RsaKeyHelper;
 
 class Rsa implements EncoderInterface
 {
@@ -26,7 +27,7 @@ class Rsa implements EncoderInterface
     public function getCertificate(): RsaKeyEntity
     {
         $pem = $this->store->getCertificate();
-        $json = RsaHelper::pemToBin($pem);
+        $json = RsaKeyHelper::pemToBin($pem);
         $key = new RsaKeyEntity(RsaKeyEntity::CERTIFICATE, $json);
         return $key;
     }
